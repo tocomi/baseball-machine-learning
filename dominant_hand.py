@@ -1,6 +1,5 @@
 import pandas as pd
-from sklearn import datasets, tree, metrics
-
+from sklearn import datasets, tree, metrics, ensemble
 
 '''
 投手の左右別被打率をもとに投手の利き腕を判別する
@@ -19,7 +18,7 @@ def main():
     train_size = int(sample_size * 3 / 5)
 
     # 識別器の作成と学習
-    classifier = tree.DecisionTreeClassifier()
+    classifier = ensemble.RandomForestClassifier(n_estimators=20, max_depth=3, criterion='gini')
     classifier.fit(averages[:train_size], hands[:train_size])
 
     # 利き腕を判別する
