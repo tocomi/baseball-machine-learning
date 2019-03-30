@@ -26,8 +26,12 @@ def main():
     expected = hands[train_size:]
     predicted = classifier.predict(averages[train_size:])
 
-    # 判定の適合率を表示
-    print('Accuracy: \n', metrics.accuracy_score(expected, predicted))
+    # 分類器の性能を表示
+    print('Accuracy:\n', metrics.accuracy_score(expected, predicted))
+    print('\nConfusion matrix:\n', metrics.confusion_matrix(expected, predicted))
+    print('\nPrecision:\n', metrics.precision_score(expected, predicted, pos_label='right'))
+    print('\nRecall:\n', metrics.recall_score(expected, predicted, pos_label='right'))
+    print('\nF-measure:\n', metrics.f1_score(expected, predicted, pos_label='right'))
 
 if __name__ == '__main__':
     main()
