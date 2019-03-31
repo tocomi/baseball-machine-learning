@@ -11,20 +11,19 @@ def main():
     df = pd.read_csv('./data/annual_salary.csv')
 
     # reshapeを使って1次配列を2次配列に変換
-    homerun = df['homerun'].values.reshape(-1, 1)
+    results = df.loc[ :, [ 'game', 'homerun', 'steel' ]].values
     salary = df['salary'].values.reshape(-1, 1)
 
     # 学習
     model = linear_model.LinearRegression()
-    model.fit(homerun, salary)
+    model.fit(results, salary)
+
+    # 係数と切片
+    print('coef: ', model.coef_)
+    print('intercept: ', model.intercept_)
 
     # 決定係数
-    print(model.score(homerun, salary))
-
-    # グラフの表示
-    plt.scatter(homerun, salary, marker='+')
-    plt.scatter(homerun, model.predict(homerun), marker='o')
-    plt.show()
+    print('score: ', model.score(results, salary))
 
 if __name__ == '__main__':
     main()
